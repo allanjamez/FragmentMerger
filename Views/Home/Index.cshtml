@@ -1,0 +1,50 @@
+﻿@{
+	ViewData["Title"] = "Fragment Merger";
+	var input = ViewBag.Input as string ?? "";
+	var result = ViewBag.Result as string;
+}
+<h2>Fragment Merger</h2>
+
+
+	<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+		<label for="fragmentInput" style="margin: 0; font-weight: 600;">Enter fragments (one per line):</label>
+		<div>
+			<button type="button" onclick="fillRandomSample()" style="margin-right: 0.5rem;">Try Random Fragments</button>
+			<button type="button" onclick="clearInput()">Clear</button>
+		</div>
+	</div>
+	<form method="post" asp-action="Merge">
+		<textarea name="fragmentInput" rows="10" cols="80">@input</textarea><br />
+		<button type="submit">Merge Fragments</button>
+	</form>
+
+
+@if (result != null)
+{
+	<h3>Merged Output:</h3>
+	<textarea readonly rows="2" style="width: 100%; font-family: monospace;">@result</textarea>
+}
+
+
+@section Scripts {
+	<script>
+		const samples = [
+			`all is well\nell that en\nhat end\nt ends well`,
+			`to be or not\nor not to be\nnot to be, that\nbe, that is the\nthat is the question`,
+			`abcde\ncdefg\nefghi\nghijk\nijklm`,
+			`this is a test\nis a\na test of\ntest of the\nof the system`,
+			`the quick brown\nquick brown fox\nbrown fox jumps\nfox jumps over\njumps over the lazy\nover the lazy dog\nlazy dog`
+		];
+
+		function fillRandomSample() {
+			const textarea = document.querySelector('textarea[name="fragmentInput"]');
+			const random = samples[Math.floor(Math.random() * samples.length)];
+			textarea.value = random;
+		}
+
+			  function clearInput() {
+			const textarea = document.querySelector('textarea[name="fragmentInput"]');
+			textarea.value = "";
+		}
+	</script>
+}

@@ -1,0 +1,13 @@
+# Ignore Visual Studio user settings
+.vs/
+*.user
+*.suo
+
+# Ignore build folders
+bin/
+obj/
+
+# Others
+*.log
+*.vsidx
+*.dbmdl
